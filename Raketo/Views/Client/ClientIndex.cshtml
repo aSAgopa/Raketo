@@ -1,0 +1,62 @@
+﻿@using Raketo.Models;
+@using Raketo.ViewModel;
+@using Raketo.Interfaces;
+@model IEnumerable<IProducts>
+
+
+@foreach (var item in Model)
+{
+    <div style="text-align: center ; border: 2px solid black;
+      border-radius: 20px; background-image:url(/images/beverages.jpg)">
+        <h1 style="color: blue">@item.CategoriesName</h1>
+    </div>
+    break;
+
+}
+
+
+
+<table class="table show-empty-cells" style="width: 500px; margin: auto; table-layout: fixed; border-collapse: collapse;">
+    <tr>
+        <th style="width: 25%;">Product name</th>
+        <th style="width: 15%;">Quantity</th>
+        <th style="width: 15%;">Price</th>
+        <th style="width: 20%;">Count</th>
+        <th style="width: 10%;">Action</th>
+    </tr>
+
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if (item.Name != null)
+                {
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price</td>
+                    <form method="get" action="/client/BuyOrder">
+                    <td>
+                        <input type="number" name="count" placeholder="Count" style="width: 100%; height: 40px; padding: 5px;" />
+                        <input type="hidden" name="categoriesId" value="@item.CategoresID" />
+                        <input type="hidden" name="price" value="@item.Price" />
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <input type="hidden" name="name" value="@item.Name" />
+                    </td>
+                    <td>
+                        <input type="submit" value="Buy" style="width: 100%; height: 40px; background-color: #28a745; color: #fff; text-align: center; border: none; border-radius: 50%; cursor: pointer; padding: 5px;" />
+                    
+                    </td>
+                    </form>
+
+                }
+            </tr>
+        }
+    }
+</table>
+
+@if (Model?.Count() <= 0)
+{
+    <h1>All sold out !!!</h1>
+}
+

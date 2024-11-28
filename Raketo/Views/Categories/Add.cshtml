@@ -1,0 +1,39 @@
+﻿@using Raketo.Models
+@using Raketo.ViewModel
+@model ProductViewModel
+
+
+
+    <div style="text-align: center ; border: 2px solid black;
+      border-radius: 20px; background-image:url(/images/beverages.jpg)">
+        <h1 style="color: blue">@Model.CategoriesName</h1>
+    </div>
+   
+
+
+
+    <form method="post" asp-controller="categories" asp-action="add">
+        <p>
+            <input type="hidden" name="CategoresID" value="@Model.CategoresID" />
+        <div>
+        <label> <h3>Name</h3></label> 
+            <input required type="text" name="Name" placeholder="Input name of the product" maxlength="20" />
+        </div>
+         <div>
+        <label> <h3>Quantity</h3></label>
+            <input required type="number" name="Quantity" size="25" placeholder="Input the quantity" />
+        </div>   
+        <div>
+        <label> <h3>Price</h3></label>
+            <input required asp-for="Price" type="number" step="0.01" size="25" placeholder="Input the price" />
+        </div>
+        </p>
+        <button type="submit" style="color:red">Add product</button>
+    </form>
+    </br>
+<a href="/admin/adminindex" type="submit" border-radius:7px 25px; "><button>Back</button></a>
+
+   
+
+
+
