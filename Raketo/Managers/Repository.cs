@@ -13,8 +13,8 @@ namespace Raketo.Managers
     public class Repository : IRepository
     {
 
-        public MarketDB DB { get; set; }
-        public Repository(MarketDB dB)
+        public IMarketDB DB { get; set; }
+        public Repository(IMarketDB dB)
         {
             DB = dB;
         }
