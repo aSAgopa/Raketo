@@ -10,8 +10,9 @@ using System.Net.WebSockets;
 
 namespace Raketo.Managers
 {
-    public class Repository
+    public class Repository : IRepository
     {
+
         public MarketDB DB { get; set; }
         public Repository(MarketDB dB)
         {

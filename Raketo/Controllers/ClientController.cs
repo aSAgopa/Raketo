@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Raketo.Interfaces;
 using Raketo.Managers;
 
 namespace Raketo.Controllers
 {
     public class ClientController : Controller
     {
-        Repository Repository { get; set; }
-        public ClientController(Repository rep)
+        IRepository Repository { get; set; }
+        public ClientController(IRepository rep)
         {
             Repository = rep;
         }

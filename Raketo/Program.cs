@@ -11,7 +11,7 @@ builder.Services.AddDbContext<MarketDB>(options => options.UseSqlServer(connecti
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<MarketDB>()
     .AddDefaultTokenProviders();
-builder.Services.AddScoped<Repository>();
+builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IProducts,Fish>();
 builder.Services.AddScoped<IProducts,Beverages>();
 builder.Services.AddScoped<IProducts,Meat>();

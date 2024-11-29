@@ -9,9 +9,9 @@ namespace Raketo.Controllers
 {
     public class CategoriesController : Controller
     {
-        private Repository Rep { get; set; }
+        private IRepository Rep { get; set; }
 
-        public CategoriesController(Repository rp)
+        public CategoriesController(IRepository rp)
         {
             Rep = rp;
 
