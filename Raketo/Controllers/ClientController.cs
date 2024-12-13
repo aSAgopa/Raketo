@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Raketo.Interfaces;
 using Raketo.Managers;
+using Raketo.Model.Enums;
+
 
 namespace Raketo.Controllers
 {
@@ -11,7 +13,7 @@ namespace Raketo.Controllers
         {
             Repository = rep;
         }
-        public async Task<IActionResult> ClientIndex(int id)
+        public async Task<IActionResult> ClientIndex(Products type )
         {
             var result = Repository.GetProductsAsync(id);
             return View(await result);
@@ -23,9 +25,6 @@ namespace Raketo.Controllers
            return RedirectToAction("ClientIndex", new { id = categoriesId });
                
         }
-        //public async Task<IActionResult> ShoppingCart()
-        //{
-        
-        //}
+      
     }
 }

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raketo", "Raketo\Raketo.csproj", "{7E0763C2-B9AC-440E-AB75-6CB0257B2496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raketo", "Raketo\Raketo.csproj", "{7E0763C2-B9AC-440E-AB75-6CB0257B2496}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raketo.Model", "Raketo.Model\Raketo.Model.csproj", "{48E02310-0818-46DB-8B3D-66A9F6DA884A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raketo.DAL", "Raketo.DAL\Raketo.DAL.csproj", "{A664446C-77FF-45D2-86FB-E2B2DB8A2AD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{7E0763C2-B9AC-440E-AB75-6CB0257B2496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E0763C2-B9AC-440E-AB75-6CB0257B2496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E0763C2-B9AC-440E-AB75-6CB0257B2496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48E02310-0818-46DB-8B3D-66A9F6DA884A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E02310-0818-46DB-8B3D-66A9F6DA884A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E02310-0818-46DB-8B3D-66A9F6DA884A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E02310-0818-46DB-8B3D-66A9F6DA884A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A664446C-77FF-45D2-86FB-E2B2DB8A2AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A664446C-77FF-45D2-86FB-E2B2DB8A2AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A664446C-77FF-45D2-86FB-E2B2DB8A2AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A664446C-77FF-45D2-86FB-E2B2DB8A2AD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
