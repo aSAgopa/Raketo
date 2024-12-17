@@ -6,5 +6,6 @@
         IEnumerable<T> GetAll();
         void Add(T user);
         void Delete(Guid id);
+        void Update(Product product);
     }
 }
