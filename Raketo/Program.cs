@@ -8,12 +8,7 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 string? connection = builder.Configuration.GetConnectionString("DBConnectionOne");
 builder.Services.AddDbContext<MarketDB>(options => options.UseSqlServer(connection));
-builder.Services.AddScoped<IMarketDB, MarketDB>();
-builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddScoped<IProducts,Fish>();
-builder.Services.AddScoped<IProducts,Beverages>();
-builder.Services.AddScoped<IProducts,Meat>();
-builder.Services.AddScoped<IProducts,Vegetables>();
+
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 app.UseStaticFiles();

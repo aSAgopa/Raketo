@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Raketo.BL\Raketo.BL.csproj" />
+    <ProjectReference Include="..\Raketo.DAL\Raketo.DAL.csproj" />
+    <ProjectReference Include="..\Raketo.Model\Raketo.Model.csproj" />
+  </ItemGroup>
+
+</Project>
