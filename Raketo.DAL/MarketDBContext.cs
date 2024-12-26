@@ -13,9 +13,10 @@ namespace Raketo.DAL
         public MarketDBContext(DbContextOptions<MarketDBContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
-        public DbSet<Product> Products { get; set; } 
+        public DbSet<Product> Products { get; set; } = null!; 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

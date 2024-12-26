@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Raketo.BL\Raketo.BL.csproj" />
     <ProjectReference Include="..\Raketo.DAL\Raketo.DAL.csproj" />
     <ProjectReference Include="..\Raketo.Model\Raketo.Model.csproj" />

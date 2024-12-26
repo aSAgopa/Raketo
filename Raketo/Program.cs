@@ -1,20 +1,18 @@
 using Microsoft.EntityFrameworkCore;
-using Raketo.Managers;
+using Raketo.Infrastructure;
 using Raketo.Interfaces;
-using Raketo.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+using Raketo.Services;
+using Raketo.ViewModel;
 
 var builder = WebApplication.CreateBuilder(args);
-string? connection = builder.Configuration.GetConnectionString("DBConnectionOne");
-builder.Services.AddDbContext<MarketDB>(options => options.UseSqlServer(connection));
-
+string? connection = builder.Configuration.GetConnectionString("DBConnectionOne") ??
+    throw new ArgumentException(nameof(connection));
+builder.Services.AddScoped<IUiService<ProductViewModel>, ProductService>();
+builder.Services.AddInfrastructure(connection);
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthentication(); 
-app.UseAuthorization();
 app.MapDefaultControllerRoute();
 app.Run();
 

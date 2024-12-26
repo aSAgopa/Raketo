@@ -16,6 +16,11 @@ namespace Raketo.DAL
         {
             _dbContext = context ?? throw new ArgumentNullException(nameof(context));
         }
+        public IEnumerable<Product> GetAll()
+        {
+            return _dbContext.Products;
+           
+        }
 
         public void Add(Product product)
         {
@@ -34,11 +39,6 @@ namespace Raketo.DAL
             }
         }
 
-        public IEnumerable<Product> GetAll()
-        {
-            return _dbContext.Products;
-           
-        }
 
         public Product GetById(Guid id)
         {

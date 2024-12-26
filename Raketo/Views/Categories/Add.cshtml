@@ -1,20 +1,18 @@
-﻿@using Raketo.Models
-@using Raketo.ViewModel
+﻿@using Raketo.ViewModel
 @model ProductViewModel
 
 
 
     <div style="text-align: center ; border: 2px solid black;
       border-radius: 20px; background-image:url(/images/beverages.jpg)">
-        <h1 style="color: blue">@Model.CategoriesName</h1>
     </div>
    
-
-
-
     <form method="post" asp-controller="categories" asp-action="add">
         <p>
-            <input type="hidden" name="CategoresID" value="@Model.CategoresID" />
+        <div>
+            <label> <h3>Category</h3></label>
+            <input required type="text" name="Category" placeholder="Input name of the category" />
+        </div>
         <div>
         <label> <h3>Name</h3></label> 
             <input required type="text" name="Name" placeholder="Input name of the product" maxlength="20" />

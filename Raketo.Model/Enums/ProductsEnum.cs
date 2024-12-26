@@ -9,7 +9,7 @@ namespace Raketo.Model.Enums
    
         public enum Products
         {
-            Beverage,
+            Beverage ,
             Fish,
             Meat,
             Vegetable

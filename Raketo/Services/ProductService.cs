@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Raketo.BL.Interfaces;
+using Raketo.DAL.Entities;
+using Raketo.DAL;
 using Raketo.Interfaces;
 using Raketo.Model;
 using Raketo.ViewModel;
+using Raketo.BL.Services;
 
 namespace Raketo.Services
 {
@@ -19,7 +22,9 @@ namespace Raketo.Services
 
         public void Add(ProductViewModel data)
         {
-            _productService.Add(_mapper.Map<ProductDto>(data));
+            var product = _mapper.Map<ProductDto>(data);
+            _productService.Add(product);
+            
         }
 
         public void Delete(Guid id)

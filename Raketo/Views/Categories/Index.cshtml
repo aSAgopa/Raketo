@@ -1,14 +1,13 @@
-﻿@using Raketo.Models;
-@using Raketo.ViewModel;
+﻿@using Raketo.ViewModel;
 @using Raketo.Interfaces;
-@model IEnumerable<IProducts>
+@model IEnumerable<ProductViewModel>;
 
 
 @foreach (var item in Model)
 {
     <div style="text-align: center ; border: 2px solid black;
       border-radius: 20px; background-image:url(/images/beverages.jpg)">
-        <h1 style="color: blue">@item.CategoriesName</h1>
+        <h1 style="color: blue">@item.Category</h1>
     </div>
     break;
 
@@ -35,10 +34,10 @@
                 <td>@item.Quantity</td>
                 <td>@item.Price</td>
                     <td>
-                        <a href="/categories/edit?id=@item.Id&idFor=@item.CategoresID"><input type="submit" value="Edit"></a>
+                        <a href="/categories/edit?id=@item.Id&_category=@item.Category"><input type="submit" value="Edit"></a>
                     </td>
                     <td>
-                        <a href="/categories/delete?id=@item.Id&idFor=@item.CategoresID"><input type="submit" value="Delete" /></a>
+                        <a href="/categories/delete?id=@item.Id&_category=@item.Category"><input type="submit" value="Delete" /></a>
                     </td>
                 }
             </tr>
@@ -46,19 +45,11 @@
     }
 </table>
 
-
 @if (Model?.Count() <= 0)
 {
     <h1>All sold out !!!</h1>
 }
 
-@if (Model != null)
-{
-    @foreach (var item in Model)
-    {
-    <a href="/categories/add/@item.CategoresID" type="submit" style="border:2px solid black; border-radius:7px 25px; color:green"><b>Add product </b></a>
-     break;
-    }
+<a href="/categories/add/" type="submit" style="border:2px solid black; border-radius:7px 25px; color:green"><b>Add product </b></a>
     
-}
 <a href="/admin/adminindex" type="submit" border-radius:7px 25px; "><button>Back</button></a>
