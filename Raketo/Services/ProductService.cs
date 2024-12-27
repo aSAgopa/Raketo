@@ -6,6 +6,7 @@ using Raketo.Interfaces;
 using Raketo.Model;
 using Raketo.ViewModel;
 using Raketo.BL.Services;
+using Raketo.Model.Enums;
 
 namespace Raketo.Services
 {
@@ -18,6 +19,10 @@ namespace Raketo.Services
         {
             _productService = service;
             _mapper = mapper;
+        }
+        public IEnumerable<ProductViewModel> GetAll(Products category)
+        {
+            return _mapper.Map<List<ProductViewModel>>(_productService.GetAll(category));
         }
 
         public void Add(ProductViewModel data)
@@ -32,10 +37,6 @@ namespace Raketo.Services
             _productService.Delete(id);
         }
 
-        public IEnumerable<ProductViewModel> GetAll()
-        {
-            return _mapper.Map<List<ProductViewModel>>(_productService.GetAll());
-        }
 
         public ProductViewModel GetById(Guid id)
         {

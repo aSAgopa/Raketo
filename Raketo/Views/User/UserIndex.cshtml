@@ -1,13 +1,13 @@
-﻿@using Raketo.Models;
-@using Raketo.ViewModel;
+﻿@using Raketo.ViewModel;
 @using Raketo.Interfaces;
+@model IEnumerable<ProductViewModel>;
 
 
 @foreach (var item in Model)
 {
     <div style="text-align: center ; border: 2px solid black;
       border-radius: 20px; background-image:url(/images/beverages.jpg)">
-        <h1 style="color: blue">@item.CategoriesName</h1>
+        <h1 style="color: blue">@item.Category</h1>
     </div>
     break;
 
@@ -34,16 +34,20 @@
                     <td>@item.Name</td>
                     <td>@item.Quantity</td>
                     <td>@item.Price</td>
-                    <form method="get" action="/client/BuyOrder">
+                    <form method="get" action="/User/BuyOrder">
                     <td>
-                        <input type="number" name="count" placeholder="Count" style="width: 100%; height: 40px; padding: 5px;" />
-                        <input type="hidden" name="categoriesId" value="@item.CategoresID" />
+                        <input type="number" name="Quantity" placeholder="Quantity" style="width: 100%;
+                         height: 40px; padding: 5px;" />
+                        <input type="hidden" name="category" value="@item.Category" />
                         <input type="hidden" name="price" value="@item.Price" />
                         <input type="hidden" name="id" value="@item.Id" />
                         <input type="hidden" name="name" value="@item.Name" />
                     </td>
                     <td>
-                        <input type="submit" value="Buy" style="width: 100%; height: 40px; background-color: #28a745; color: #fff; text-align: center; border: none; border-radius: 50%; cursor: pointer; padding: 5px;" />
+                        <input type="submit" value="Buy" style="width: 100%; height: 40px; 
+                         background-color: #28a745; color: #fff;
+                         text-align: center; border: none; border-radius: 50%; cursor: pointer;
+                         padding: 5px;" />
                     
                     </td>
                     </form>

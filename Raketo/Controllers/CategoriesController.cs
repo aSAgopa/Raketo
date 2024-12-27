@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Raketo.DAL.Entities;
 using Raketo.Interfaces;
 using Raketo.Model.Enums;
 using Raketo.ViewModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Raketo.Controllers
 {
@@ -16,19 +18,19 @@ namespace Raketo.Controllers
         [HttpGet]
         public IActionResult Index(Products category)
         {
-            var result = _productService.GetAll().Where(p => p.Category == category).ToList();
+            var result = _productService.GetAll(category).ToList();
             return View(result);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-           return View(new ProductViewModel());
+            return View(new ProductViewModel());
         }
         [HttpPost]
         public IActionResult Add(ProductViewModel product)
         {
-            
+
             _productService.Add(product);
 
             return RedirectToAction("Index", new { category = product.Category });
@@ -38,6 +40,18 @@ namespace Raketo.Controllers
         {
             _productService.Delete(Id);
             return RedirectToAction("Index", new { category = _category });
+        }
+        [HttpGet]
+        public IActionResult Edit(Guid Id)
+        {
+            var product = _productService.GetById(Id);
+            return View(product);
+        }
+        [HttpPost]
+        public IActionResult Edit(ProductViewModel product)
+        {
+            _productService.Update(product);
+            return RedirectToAction("Index", new { category = product.Category } );
         }
         //private IRepository Rep { get; set; }
 
@@ -53,18 +67,7 @@ namespace Raketo.Controllers
         //}
 
 
-            //}
-            //public IActionResult Edit(int id, int idFor)
-            //{
-            //    var result = Rep.CreateModel(id, idFor);
-            //    return View(result);
-            //}
-            //[HttpPost]
-            //public async Task<IActionResult> Edit(ProductViewModel model)
-            //{
-            //    await Rep.UpdateProductAsync(model);
-            //    return RedirectToAction("Index", new { id = model.CategoresID });
-            //}
+        //}
 
-        }
+    }
 }

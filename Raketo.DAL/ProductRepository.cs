@@ -16,10 +16,11 @@ namespace Raketo.DAL
         {
             _dbContext = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<Product> GetAll(Products category)
         {
-            return _dbContext.Products;
-           
+
+            return _dbContext.Products.Where(p => p.Category == category); 
+          
         }
 
         public void Add(Product product)

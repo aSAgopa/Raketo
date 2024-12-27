@@ -3,6 +3,7 @@ using Raketo.BL.Interfaces;
 using Raketo.DAL.Entities;
 using Raketo.DAL.Entities.Interfaces;
 using Raketo.Model;
+using Raketo.Model.Enums;
 
 
 namespace Raketo.BL.Services
@@ -18,9 +19,9 @@ namespace Raketo.BL.Services
             _mapper = mapper;
 
         }
-        public IEnumerable<ProductDto> GetAll()
+        public IEnumerable<ProductDto> GetAll(Products category)
         {
-            var products = _productRepository.GetAll();
+            var products = _productRepository.GetAll(category);
             return _mapper.Map<List<ProductDto>>(products);
         }
 
