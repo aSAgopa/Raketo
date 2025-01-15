@@ -16,13 +16,25 @@ namespace Raketo.DAL
             Database.EnsureCreated();
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; } = null!; 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-           modelBuilder.Entity<Product>(entity =>
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("Users");
+                entity.HasKey(u => u.Id);
+                entity.Property(u => u.Name)
+                      .IsRequired()
+                      .HasMaxLength(100);
+                entity.Property(u => u.Email)
+                      .IsRequired()
+                      .HasMaxLength(150);
+            });
+            modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Products");
                 entity.HasKey(p => p.Id);

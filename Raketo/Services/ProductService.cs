@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
 using Raketo.BL.Interfaces;
-using Raketo.DAL.Entities;
-using Raketo.DAL;
 using Raketo.Interfaces;
+using Raketo.Model.Enums;
 using Raketo.Model;
 using Raketo.ViewModel;
 using Raketo.BL.Services;
-using Raketo.Model.Enums;
+
 
 namespace Raketo.Services
 {
-    public class ProductService : IUiService<ProductViewModel>
+    public class ProductService : IProductsServiceUI<ProductViewModel, Products>
     {
         private readonly IService<ProductDto> _productService;
         private readonly IMapper _mapper;
@@ -24,7 +23,7 @@ namespace Raketo.Services
         {
             return _mapper.Map<List<ProductViewModel>>(_productService.GetAll(category));
         }
-
+       
         public void Add(ProductViewModel data)
         {
             var product = _mapper.Map<ProductDto>(data);
@@ -47,5 +46,6 @@ namespace Raketo.Services
             var product = _mapper.Map<ProductDto>(data);
             _productService.Update(product);
         }
+
     }
 }

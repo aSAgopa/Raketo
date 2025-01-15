@@ -22,9 +22,10 @@ namespace Raketo.Infrastructure
                 options.UseSqlServer(connectionString));
                      
             services.AddScoped<IRepository<Product>, ProductRepository>();
-            
+            services.AddScoped<IUserRepository<User>, UserRepository>();
             services.AddScoped<IService<ProductDto>, ProductService>();
-            
+            services.AddScoped<IUserService<UserDto>, UserService>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             return services;
         }

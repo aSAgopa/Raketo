@@ -9,8 +9,8 @@ namespace Raketo.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly IUiService<ProductViewModel> _productService;
-        public CategoriesController(IUiService<ProductViewModel> productViewModel)
+        private readonly IProductsServiceUI<ProductViewModel,Products> _productService;
+        public CategoriesController(IProductsServiceUI<ProductViewModel,Products> productViewModel)
         {
             _productService = productViewModel;
         }

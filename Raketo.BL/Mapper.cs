@@ -10,8 +10,11 @@ namespace Raketo.BL
         public MapperBL()
         {
             CreateMap<Product, ProductDto>();
-             
             CreateMap<ProductDto, Product>();
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
+
+
         }
     }
 }
