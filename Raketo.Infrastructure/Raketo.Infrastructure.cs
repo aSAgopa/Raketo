@@ -4,7 +4,7 @@ using Raketo.BL.Interfaces;
 using Raketo.BL.Services;
 using Raketo.DAL;
 using Raketo.DAL.Entities;
-using Raketo.DAL.Entities.Interfaces;
+using Raketo.DAL.Interfaces;
 using Raketo.Model;
 
 namespace Raketo.Infrastructure
@@ -21,12 +21,14 @@ namespace Raketo.Infrastructure
             services.AddDbContext<MarketDBContext>(options =>
                 options.UseSqlServer(connectionString));
                      
+            services.AddScoped<IOrderRepository<Order>, OrderRepository>();
+            services.AddScoped<IOrderServiceBL<OrderDto>, OrderService>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
-            services.AddScoped<IUserRepository<User>, UserRepository>();
             services.AddScoped<IService<ProductDto>, ProductService>();
             services.AddScoped<IUserService<UserDto>, UserService>();
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IUserRepository<User>, UserRepository>();
+            
+                services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             return services;
         }
     }

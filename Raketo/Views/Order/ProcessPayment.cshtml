@@ -1,0 +1,68 @@
+﻿@using Raketo.ViewModel;
+@model IEnumerable<OrderViewModel>;
+@{
+    var userId = ViewBag.UserId;
+    var totalPrice = ViewBag.TotalPrice;
+
+}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment process</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+
+        .container {
+            text-align: left;
+            max-width: 400px;
+        }
+
+        .message {
+            font-size: 24px;
+            font-weight: bold;
+            color: blue;
+            animation: glow 1s infinite alternate;
+        }
+
+        .amount {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #008CBA;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+            .back-button:hover {
+                background-color: #005f73;
+            }
+    </style>
+</head> 
+<body>
+
+    <div class="container">
+        <div class="message">The operation was <span style="color:green">successful</span></div>
+        <div class="amount"><h3>Product worth:</h3> <span id="total-price" style="color:red">0.00</span> EU</div>
+        <a href="/user/user?id=@userId" class="back-button">Back</a>
+    </div>
+
+    <script>
+        document.getElementById("total-price").textContent = "@totalPrice";
+    </script>
+
+</body>
+</html>

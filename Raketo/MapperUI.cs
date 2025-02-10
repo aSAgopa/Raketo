@@ -13,8 +13,9 @@ namespace Raketo
             CreateMap<ProductDto, ProductViewModel>();
             CreateMap<UserDto, UserViewModel>();
             CreateMap<UserViewModel, UserDto>();
+            CreateMap<OrderViewModel, OrderDto>();
+            CreateMap<OrderDto, OrderViewModel>();
 
-            
         }
 
     }

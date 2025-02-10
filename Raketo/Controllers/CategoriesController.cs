@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Raketo.DAL.Entities;
 using Raketo.Interfaces;
 using Raketo.Model.Enums;
 using Raketo.ViewModel;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Raketo.Controllers
 {
@@ -16,9 +14,9 @@ namespace Raketo.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(Products category)
+        public async Task<IActionResult> IndexAsync(Products category)
         {
-            var result = _productService.GetAll(category).ToList();
+            var result = await _productService.GetAllAsync(category);
             return View(result);
         }
 
@@ -28,46 +26,31 @@ namespace Raketo.Controllers
             return View(new ProductViewModel());
         }
         [HttpPost]
-        public IActionResult Add(ProductViewModel product)
+        public async Task<IActionResult> AddAsync(ProductViewModel product)
         {
 
-            _productService.Add(product);
+            await _productService.AddAsync(product);
 
             return RedirectToAction("Index", new { category = product.Category });
         }
 
-        public IActionResult Delete(Guid Id, Products _category)
+        public async Task<IActionResult> DeleteAsync(Guid Id, Products _category)
         {
-            _productService.Delete(Id);
+            await _productService.DeleteAsync(Id);
             return RedirectToAction("Index", new { category = _category });
         }
         [HttpGet]
-        public IActionResult Edit(Guid Id)
+        public async Task<IActionResult> EditAsync(Guid Id)
         {
-            var product = _productService.GetById(Id);
+            var product = await _productService.GetByIdAsync(Id);
             return View(product);
         }
         [HttpPost]
-        public IActionResult Edit(ProductViewModel product)
+        public async Task<IActionResult> EditAsync(ProductViewModel product)
         {
-            _productService.Update(product);
+            await _productService.UpdateAsync(product);
             return RedirectToAction("Index", new { category = product.Category } );
         }
-        //private IRepository Rep { get; set; }
-
-        //public CategoriesController(IRepository rp)
-        //{
-        //    Rep = rp;
-
-        //}
-        //public async Task<IActionResult> Index(int id)
-        //{
-        //    var result = Rep.GetProductsAsync(id);
-        //    return View(await result);
-        //}
-
-
-        //}
-
+       
     }
 }

@@ -6,11 +6,11 @@ namespace Raketo.BL.Interfaces
 {
     public interface IService<T> where T : class
     {
-        T GetById(Guid id);
-        IEnumerable<T> GetAll(Products category);
-        void Add(T data);
-        void Delete(Guid id);
-        void Update(ProductDto product);
-       
+        Task<T> GetByIdAsync(Guid id);
+        Task<IEnumerable<T>> GetAllAsync(Products category);
+        Task AddAsync(T data);
+        Task DeleteAsync(Guid id);
+        Task UpdateAsync(ProductDto product);
+        Task UpdateProductQuantityAsync(Guid productId, int amount);
     }
 }

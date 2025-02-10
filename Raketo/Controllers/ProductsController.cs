@@ -15,14 +15,15 @@ namespace Raketo.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductsIndex(Products category)
+        public async Task<IActionResult> ProductsIndexAsync(Products category, Guid userId)
         {
-            var result = _productService.GetAll(category).ToList();
+            var result = await _productService.GetAllAsync(category);
+            ViewBag.UserId = userId;
             return View(result);
         }
-        public IActionResult ProductsOverview(Products category)
+        public async Task<IActionResult> ProductsOverview(Products category)
         {
-            var result = _productService.GetAll(category).ToList();
+            var result = await _productService.GetAllAsync(category);
             return View(result);
         }
 

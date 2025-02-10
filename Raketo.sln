@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raketo.DAL", "Raketo.DAL\Ra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raketo.BL", "Raketo.BL\Raketo.BL.csproj", "{45550B77-6DE1-4936-975D-68A5EF13E9CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raketo.Infrastructure", "Raketo.Infrastructure\Raketo.Infrastructure.csproj", "{2E4C5496-81FC-40C3-BB97-1725A197E63D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raketo.Infrastructure", "Raketo.Infrastructure\Raketo.Infrastructure.csproj", "{2E4C5496-81FC-40C3-BB97-1725A197E63D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

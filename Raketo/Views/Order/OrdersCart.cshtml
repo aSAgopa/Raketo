@@ -1,0 +1,72 @@
+﻿@using Raketo.ViewModel;
+@model IEnumerable<OrderViewModel>;
+@{
+    var userId = ViewBag.UserId;
+    string totalPrice = (Model?.Sum(item => item.Price * item.Amount) ?? 0).ToString("F2");
+}
+
+
+<table class="table show-empty-cells" style="width: 90%; margin: auto; table-layout: fixed; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th style="width: 10%; text-transform: lowercase; text-align: center;">id</th>
+            <th style="width: 35%; text-align: center;">Product name</th>
+            <th style="width: 15%; text-align: center;">Amount</th>
+            <th style="width: 30%; text-align: center;">Price</th>
+            <th style="width: 10%; text-align: center;">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                   <tr>
+                    <td style="text-transform: lowercase; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid #ccc; text-align: center;">
+                        @item.Id
+                    </td>
+                    <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid #ccc; text-align: center;">
+                        @item.ProductName
+                    </td>
+                    <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid #ccc; text-align: center;">
+                        @item.Amount
+                    </td>
+                    <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid #ccc; text-align: center; padding-right: 10px;">
+                        @string.Format("{0:F2}", item.Price * item.Amount)
+                    </td>
+                    <td>
+                        <a href="/order/orderdelete?id=@item.Id&userId=@userId">
+                         <input type="submit" value="Delete" style="width: 100%; height: 40px;
+                         background-color: indianred; color: #fff;
+                         text-align: center; border: none; border-radius: 50%; cursor: pointer;
+                         padding: 5px;" /></a>
+                        </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 10px; border: 1px solid #ccc;">You don't have any active order !!!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; width: 90%; margin: 20px auto;">
+    <div style="width: 10%; text-align: center;">
+        <a href="/user/user?id=@userId" style="text-decoration: none;">
+            <button style="border-radius: 7px; padding: 10px 20px;">Back</button>
+        </a>
+    </div>
+    <div style="width: 50%; text-align: center;">
+        <a href="/order/orderspayment?userId=@userId&totalPrice=@totalPrice" style="text-decoration: none;"
+        " style="text-decoration: none;">
+            <button style="border-radius: 7px; padding: 10px 20px; color: green;">Proceed to payment</button>
+        </a>
+    </div>
+    <div style="width: 30%; background-color: #d4f7d4; padding: 10px 20px; border-radius: 7px; text-align: center; font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        Total Price : <span style="color: blue;">@totalPrice</span>
+    </div>
+</div>
+

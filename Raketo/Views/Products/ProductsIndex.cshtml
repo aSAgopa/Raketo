@@ -1,8 +1,15 @@
 ﻿@using Raketo.ViewModel;
 @using Raketo.Interfaces;
 @model IEnumerable<ProductViewModel>;
-
-
+@{
+    var userId = ViewBag.UserId; 
+}
+@section HeaderContent
+{
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/order/orderscart?userId=@userId">Cart</a>
+    </li>
+}
 @foreach (var item in Model)
 {
     <div style="text-align: center ; border: 2px solid black;
@@ -12,54 +19,69 @@
     break;
 
 }
-<button ><a href="/user/user"><h3>Home</h3></a></button>
+<a href="/user/user?id=@userId">
+<button style="border-radius: 7px; padding: 10px 20px;">Home</button>
+</a>
 
-
-<table class="table show-empty-cells" style="width: 500px; margin: auto; table-layout: fixed; border-collapse: collapse;">
-    <tr>
-        <th style="width: 25%;">Product name</th>
-        <th style="width: 15%;">Quantity</th>
-        <th style="width: 15%;">Price</th>
-        <th style="width: 20%;">Count</th>
-        <th style="width: 10%;">Action</th>
-    </tr>
-
-    @if (Model != null && Model.Any())
-    {
-        @foreach (var item in Model)
-        {
+<div style="max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 10px;">
+    <table class="table show-empty-cells" style="width: 100%; border-collapse: collapse; text-align: center;">
+        <thead style="background-color: #f1f1f1;">
             <tr>
-                @if (item.Name != null)
+                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Product Name</th>
+                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Quantity</th>
+                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Price</th>
+                <th style="padding: 10px; border-bottom: 1px solid #ddd;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
                 {
-                    <td>@item.Name</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.Price</td>
-                    <form method="get" action="/User/BuyOrder">
-                    <td>
-                        <input type="number" name="Quantity" placeholder="Quantity" style="width: 100%;
-                         height: 40px; padding: 5px;" />
-                        <input type="hidden" name="category" value="@item.Category" />
-                        <input type="hidden" name="price" value="@item.Price" />
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <input type="hidden" name="name" value="@item.Name" />
-                    </td>
-                    <td>
-                        <input type="submit" value="Buy" style="width: 100%; height: 40px;
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">@item.Name</td>
+                        <td style="padding: 10px;">
+                            @if (item.Quantity >= 20)
+                            {
+                                <span style="color: green; font-weight: bold;">Available</span>
+                            }
+                            else if (item.Quantity <= 0)
+                            {
+                                <span style="color: red; font-weight: bold;">All Sold Out</span>
+                            }
+                            else
+                            {
+                                <span style="color: tomato; font-weight: bold;">Low Stock</span>
+                            }
+                        </td>
+                        <td style="padding: 10px;">@item.Price</td>
+                        <td style="padding: 10px;">
+                            <form asp-controller="Order" asp-action="Index" style="margin: 0;">
+                                <input required type="number" name="amount" min="1" max="@item.Quantity" />
+                                <input type="hidden" name="category" value="@item.Category" />
+                                <input asp-for="@item.Price" name="price" type="hidden" step="0.01" size="25" />
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <input type="hidden" name="name" value="@item.Name" />
+                                <input type="hidden" name="quantity" value="@item.Quantity" />
+                                <input type="hidden" name="userId" value="@userId" />
+                        <td>
+                            <input type="submit" value="Buy" style="width: 100%; height: 40px;
                          background-color: #28a745; color: #fff;
                          text-align: center; border: none; border-radius: 50%; cursor: pointer;
                          padding: 5px;" />
 
-                    </td>
-                    </form>
-
+                        </td>
+                            </form>
+                        </td>
+                    </tr>
                 }
-            </tr>
-        }
-    }
-</table>
-
-@if (Model?.Count() <= 0)
-{
-    <h1>All sold out !!!</h1>
-}
-
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" style="padding: 20px; text-align: center; color: red; font-weight: bold;">All Sold Out!</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

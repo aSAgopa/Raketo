@@ -10,6 +10,7 @@ string? connection = builder.Configuration.GetConnectionString("DBConnectionOne"
     throw new ArgumentException(nameof(connection));
 builder.Services.AddScoped<IProductsServiceUI<ProductViewModel,Products>, ProductService>();
 builder.Services.AddScoped<IUsersServiceUI<UserViewModel,UserTypes>, UserService>();
+builder.Services.AddScoped<IOrderService<OrderViewModel>, OrderService>();
 builder.Services.AddInfrastructure(connection);
 builder.Services.AddControllersWithViews();
 var app = builder.Build();

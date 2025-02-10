@@ -13,11 +13,12 @@ namespace Raketo.DAL
         public MarketDBContext(DbContextOptions<MarketDBContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; } = null!; 
+        public DbSet<Order> Orders { get; set; } = null!; 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,6 +45,22 @@ namespace Raketo.DAL
                 entity.Property(p => p.Price)
                       .IsRequired()
                       .HasColumnType("decimal(18,2)");
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.ToTable("Orders");
+                entity.HasKey(o => o.Id);
+                entity.Property(o => o.Amount)
+                      .IsRequired()
+                      .HasColumnType("decimal(18,2)");
+                entity.Property(o => o.Price)
+                      .HasColumnType("decimal(18,2)");
+
+                entity.HasOne(o => o.User)
+                      .WithMany(o => o.Orders)
+                      .HasForeignKey(o => o.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

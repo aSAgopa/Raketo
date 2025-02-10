@@ -1,11 +1,7 @@
-﻿using Raketo.DAL.Entities.Interfaces;
-using Raketo.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Raketo.DAL.Entities;
 using Raketo.Model.Enums;
+using Raketo.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Raketo.DAL
 {
@@ -17,40 +13,41 @@ namespace Raketo.DAL
             _dbContext = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public bool Add(User user)
+        public async Task<bool> AddAsync(User user)
         {
-            bool exists = _dbContext.Users.Any(u => u.Name == user.Name || u.Email == user.Email);
-
+            bool exists = await _dbContext.Users.AnyAsync(u => u.Name == user.Name || u.Email == user.Email);
             if (exists)
             {
-             return false;
+                return false;
             }
 
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
             return true;
         }
 
 
-        public void Delete(Guid id)
+
+        public async Task DeleteAsync(Guid id)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (user != null)
             {
-                _dbContext.Users.Remove(user);
-                _dbContext.SaveChanges();
+               _dbContext.Users.Remove(user);
+               await _dbContext.SaveChangesAsync();
             }
         }
 
-        public IEnumerable<User> GetAll(UserTypes user)
+        public async Task<IEnumerable<User>> GetAllAsync(UserTypes user)
         {
-            return _dbContext.Users;
+           return await _dbContext.Users.ToListAsync();
         }
+        
 
-        public User GetById(Guid id)
+        public async Task<User> GetByIdAsync(Guid id)
         {
-            return _dbContext.Users.FirstOrDefault(p => p.Id == id);
+            return await _dbContext.Users.FirstOrDefaultAsync(p => p.Id == id);
         }
 
 

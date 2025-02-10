@@ -19,32 +19,36 @@ namespace Raketo.Services
             _productService = service;
             _mapper = mapper;
         }
-        public IEnumerable<ProductViewModel> GetAll(Products category)
+        public async Task<IEnumerable<ProductViewModel>> GetAllAsync(Products category)
         {
-            return _mapper.Map<List<ProductViewModel>>(_productService.GetAll(category));
+            return _mapper.Map<List<ProductViewModel>>(await _productService.GetAllAsync(category));
         }
        
-        public void Add(ProductViewModel data)
+        public async Task AddAsync(ProductViewModel data)
         {
             var product = _mapper.Map<ProductDto>(data);
-            _productService.Add(product);
+            await _productService.AddAsync(product);
             
         }
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            _productService.Delete(id);
+           await _productService.DeleteAsync(id);
         }
 
 
-        public ProductViewModel GetById(Guid id)
+        public async Task<ProductViewModel> GetByIdAsync(Guid id)
         {
-            return _mapper.Map<ProductViewModel>(_productService.GetById(id));
+            return _mapper.Map<ProductViewModel>(await _productService.GetByIdAsync(id));
         }
-        public void Update(ProductViewModel data)
+        public async Task UpdateAsync(ProductViewModel data)
         {
             var product = _mapper.Map<ProductDto>(data);
-            _productService.Update(product);
+            await _productService.UpdateAsync(product);
+        }
+        public async Task UpdateProductQuantityAsync(Guid productid, int amount) 
+        {
+           await  _productService.UpdateProductQuantityAsync(productid, amount);
         }
 
     }

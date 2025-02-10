@@ -12,7 +12,9 @@ namespace Raketo.BL
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
             CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
+            CreateMap<UserDto, User>(); 
+            CreateMap<Order, OrderDto>();
+            CreateMap<OrderDto, Order>();
 
 
         }
