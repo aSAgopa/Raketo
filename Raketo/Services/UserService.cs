@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Raketo.BL.Interfaces;
-using Raketo.DAL;
+using Raketo.DAL.Entities;
 using Raketo.Interfaces;
 using Raketo.Model;
 using Raketo.Model.Enums;
@@ -19,12 +19,6 @@ namespace Raketo.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
 
-        public async Task<bool> AddAsync(UserViewModel data)
-        {
-            var user = _mapper.Map<UserDto>(data);
-            return await _userRepository.AddAsync(user);
-        }
-
         public async Task DeleteAsync(Guid id)
         {
            await _userRepository.DeleteAsync(id);
@@ -40,10 +34,17 @@ namespace Raketo.Services
             var user = await _userRepository.GetByIdAsync(id);
             return _mapper.Map<UserViewModel>(user);
         }
-
-        public async Task UpdateAsync(UserViewModel data)
+        
+        public async Task<bool> RegisterUserAsync(string login, string password)
         {
-            throw new NotImplementedException();
+          return await _userRepository.RegisterUserAsync(login, password);
         }
+        public async Task<UserViewModel> GetByCredentialsAsync(string login, string password)
+        {
+          var user = await _userRepository.GetByCredentialsAsync(login, password);
+          return _mapper.Map<UserViewModel>(user);
+        }
+
+
     }
 }

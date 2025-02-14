@@ -2,6 +2,8 @@
 using Raketo.Interfaces;
 using Raketo.Model.Enums;
 using Raketo.ViewModel;
+using Raketo.Models;
+
 
 
 namespace Raketo.Controllers
@@ -19,31 +21,20 @@ namespace Raketo.Controllers
             _productsService = productsService;
            
         }
-        public async Task<IActionResult> IndexAsync(Guid userId, string name, int amount, decimal price, Products category,Guid productid,
-            decimal quantity, Guid productId)
+        public async Task<IActionResult> Index(OrderViewModel оrderViewModel,Products category)
         {
-            await _productsService.UpdateProductQuantityAsync(productid,amount);
-           
-            var order = new OrderViewModel
-            {
-                Id = Guid.NewGuid(),
-                ProductName = name,
-                Amount = amount,
-                UserId = userId,
-                Price = price,
-                ProductId = productid
-            };
-           await _orderService.AddAsync(order);
-           return RedirectToAction("ProductsIndex", "Products", new { userId, category });
+            await _productsService.UpdateProductQuantityAsync(оrderViewModel.ProductId, оrderViewModel.Amount);
+            await _orderService.AddAsync(оrderViewModel);
+           return RedirectToAction("ProductsIndex", "Products", new { оrderViewModel.UserId, category });
         }
 
-        public async Task<IActionResult> OrdersCartAsync(Guid userId)
+        public async Task<IActionResult> OrdersCart(Guid userId)
         {
             var result = await _orderService.GetAllAsync(userId);
             ViewBag.UserId = userId;
             return View(result);
         }
-        public async Task<IActionResult> OrderDeleteAsync(Guid Id, Guid userId) 
+        public async Task<IActionResult> OrderDelete(Guid Id, Guid userId) 
         {
             await _orderService.DeleteAsync(Id);
             return RedirectToAction("OrdersCart", new { userId });
@@ -54,14 +45,13 @@ namespace Raketo.Controllers
             ViewBag.UserId = userId;
             return View();
         }
-        public async Task<IActionResult> ProcessPaymentAsync(Guid userId, string totalPrice, string name,
-            string surname, string numberCard, string cvv) 
+        public async Task<IActionResult> ProcessPayment(CustomerBankInfo customerBankInfo, Guid userId) 
         {
-           var result = await _orderService.SendCustomerBankInfoAsync(userId,totalPrice,name,surname, numberCard, cvv);
+           var result = await _orderService.SendCustomerBankInfoAsync(customerBankInfo);
            if(result == true) 
            {
            await _orderService.DeleteAllOrdersAsync(userId);
-           ViewBag.TotalPrice = Convert.ToDecimal(totalPrice);
+           ViewBag.TotalPrice = Convert.ToDecimal(customerBankInfo.TotalPrice);
            ViewBag.UserId = userId;
            return View();
            }

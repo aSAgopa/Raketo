@@ -8,5 +8,7 @@ namespace Raketo.BL.Interfaces
         Task<IEnumerable<T>> GetAllAsync(UserTypes user);
         Task<bool> AddAsync(T user);
         Task DeleteAsync(Guid id);
+        Task<bool> RegisterUserAsync(string login, string password);
+        Task<T> GetByCredentialsAsync(string login, string password);
     }
 }

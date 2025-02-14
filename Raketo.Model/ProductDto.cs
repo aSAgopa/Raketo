@@ -1,6 +1,5 @@
 ﻿using Raketo.Model.Enums;
-using System;
-using System.Collections.Generic;
+
 namespace Raketo.Model
 {
     public class ProductDto

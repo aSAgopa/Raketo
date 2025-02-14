@@ -10,6 +10,6 @@ namespace Raketo.DAL.Entities
         public User User { get; set; }
         public decimal Price { get; set; }
         public Guid ProductId { get; set; }
-        //public ICollection<OrderProduct> OrderProducts { get; set; }
+       
     }
 }

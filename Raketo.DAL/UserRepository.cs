@@ -45,9 +45,15 @@ namespace Raketo.DAL
         }
         
 
-        public async Task<User> GetByIdAsync(Guid id)
+        public async Task<User?> GetByIdAsync(Guid id)
         {
             return await _dbContext.Users.FirstOrDefaultAsync(p => p.Id == id);
+        }
+        public async Task<User?> GetByCredentialsAsync(string login, string password)
+        {
+            return await _dbContext.Users
+                .Where(u => u.Name == login && u.Email == password)
+                .FirstOrDefaultAsync();
         }
 
 

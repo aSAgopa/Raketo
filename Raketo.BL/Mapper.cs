@@ -2,6 +2,7 @@
 using Raketo.DAL.Entities;
 using Raketo.Model;
 
+
 namespace Raketo.BL
 {
 
@@ -15,8 +16,6 @@ namespace Raketo.BL
             CreateMap<UserDto, User>(); 
             CreateMap<Order, OrderDto>();
             CreateMap<OrderDto, Order>();
-
-
         }
     }
 }

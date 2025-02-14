@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Raketo.DAL.Entities;
+using Raketo.Models;
 using Raketo.Model;
 using Raketo.ViewModel;
+
 
 namespace Raketo
 {
@@ -15,6 +16,8 @@ namespace Raketo
             CreateMap<UserViewModel, UserDto>();
             CreateMap<OrderViewModel, OrderDto>();
             CreateMap<OrderDto, OrderViewModel>();
+            CreateMap<CustomerBankInfo, CustomerBankInfoDto>();
+            CreateMap<CustomerBankInfoDto,CustomerBankInfo>();
 
         }
 

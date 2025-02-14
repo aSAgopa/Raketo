@@ -4,9 +4,9 @@
     {
         Task<T> GetByIdAsync(Guid id);
         Task<IEnumerable<T>> GetAllAsync(K data);
-        Task<bool> AddAsync(T data);
         Task DeleteAsync(Guid id);
-        Task UpdateAsync(T data);
+        Task<bool> RegisterUserAsync(string login, string password);
+        Task<T> GetByCredentialsAsync(string login, string password);
     }
 
 }

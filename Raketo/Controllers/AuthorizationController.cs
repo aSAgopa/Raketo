@@ -14,20 +14,19 @@ namespace Raketo.Controllers
             _userService = uiService;
         }
         [HttpGet]
-        public IActionResult FormAutorization()
+        public IActionResult FormAuthorization()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> FormAutorizationAsync(string login, string password)
+        public async Task<IActionResult> FormAuthorization(string login, string password)
         {
-            var users = await _userService.GetAllAsync(UserTypes.User);
-            var user = users.FirstOrDefault(p => p.Name == login && p.Email == password);
-            
+            var user = await _userService.GetByCredentialsAsync(login, password);
+
             if (login == Admin.login && password == Admin.password)
             {
-                
+
                 return RedirectToAction("Admin", "User");
             }
 
@@ -37,9 +36,9 @@ namespace Raketo.Controllers
             }
             else
             {
-                
+
                 ViewBag.Error = "Invalid login or password.";
-                return View(); 
+                return View();
             }
 
         }
@@ -47,31 +46,16 @@ namespace Raketo.Controllers
         public IActionResult Registration() => View();
 
         [HttpPost]
-        public async Task<IActionResult> RegistrationAsync(string login, string password)
+        public async Task<IActionResult> Registration(string login, string password)
         {
-            var user = new UserViewModel() { Name = login, Email = password, Id = Guid.NewGuid() };
-            if (login == Admin.login && password == Admin.password)
-            {
-                ViewBag.Error = "User with the same Name or Email already exists.";
-                return View();
-            }
-            else
-            {
-                var result = await _userService.AddAsync(user);
-
-                if (result)
-                {
-                   return RedirectToAction ("FormAutorization");
-                }
-
-                else
+              if (login == Admin.login && password == Admin.password || !await _userService.RegisterUserAsync(login, password))
                 {
                     ViewBag.Error = "User with the same Name or Email already exists.";
                     return View();
                 }
-            }
-            
 
+                return RedirectToAction("FormAuthorization");
+                    
         }
     }
 

@@ -14,7 +14,7 @@ namespace Raketo.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> IndexAsync(Products category)
+        public async Task<IActionResult> Index(Products category)
         {
             var result = await _productService.GetAllAsync(category);
             return View(result);
@@ -26,7 +26,7 @@ namespace Raketo.Controllers
             return View(new ProductViewModel());
         }
         [HttpPost]
-        public async Task<IActionResult> AddAsync(ProductViewModel product)
+        public async Task<IActionResult> Add(ProductViewModel product)
         {
 
             await _productService.AddAsync(product);
@@ -34,19 +34,19 @@ namespace Raketo.Controllers
             return RedirectToAction("Index", new { category = product.Category });
         }
 
-        public async Task<IActionResult> DeleteAsync(Guid Id, Products _category)
+        public async Task<IActionResult> Delete(Guid Id, Products _category)
         {
             await _productService.DeleteAsync(Id);
             return RedirectToAction("Index", new { category = _category });
         }
         [HttpGet]
-        public async Task<IActionResult> EditAsync(Guid Id)
+        public async Task<IActionResult> Edit(Guid Id)
         {
             var product = await _productService.GetByIdAsync(Id);
             return View(product);
         }
         [HttpPost]
-        public async Task<IActionResult> EditAsync(ProductViewModel product)
+        public async Task<IActionResult> Edit(ProductViewModel product)
         {
             await _productService.UpdateAsync(product);
             return RedirectToAction("Index", new { category = product.Category } );

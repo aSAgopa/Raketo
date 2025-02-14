@@ -1,4 +1,6 @@
 ﻿
+using Raketo.Models;
+
 namespace Raketo.Interfaces
 {
     public interface IOrderService<T> where T : class
@@ -8,7 +10,7 @@ namespace Raketo.Interfaces
        Task AddAsync(T order);
        Task DeleteAsync(Guid id);
        Task DeleteAllOrdersAsync(Guid userId);
-       Task<bool> SendCustomerBankInfoAsync(Guid userId, string totalPrice, string name,string surname, string numberCard, string cvv);
+       Task<bool> SendCustomerBankInfoAsync(CustomerBankInfo customerBankInfo);
 
     }
     

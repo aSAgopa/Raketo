@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Raketo.BL.Models
+namespace Raketo.Models
 {
     public class CustomerBankInfo
     {

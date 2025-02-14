@@ -15,7 +15,7 @@ namespace Raketo.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProductsIndexAsync(Products category, Guid userId)
+        public async Task<IActionResult> ProductsIndex(Products category, Guid userId)
         {
             var result = await _productService.GetAllAsync(category);
             ViewBag.UserId = userId;

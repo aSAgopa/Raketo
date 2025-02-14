@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Raketo.BL.Interfaces;
-using Raketo.BL.Models;
-using Raketo.DAL;
-using Raketo.DAL.Entities;
+using Raketo.Models;
 using Raketo.Interfaces;
 using Raketo.Model;
 using Raketo.ViewModel;
@@ -45,16 +43,16 @@ namespace Raketo.Services
             var order = await _orderRepository.GetByIdAsync(id);
             return _mapper.Map<OrderViewModel>(order);
         }
-        public async Task DeleteAllOrdersAsync(Guid userId) 
+        public async Task DeleteAllOrdersAsync(Guid userId)
         {
             await _orderRepository.DeleteAllOrdersAsync(userId);
         }
-        public async Task<bool> SendCustomerBankInfoAsync(Guid userId, string totalPrice, string name,
-            string surname, string numberCard, string cvv) 
+        public async Task<bool> SendCustomerBankInfoAsync(CustomerBankInfo customerBankInfo) 
         {
-           return await _orderRepository.SendCustomerBankInfoAsync(userId, totalPrice, name, surname, numberCard, cvv);
+            var result = _mapper.Map<CustomerBankInfoDto>(customerBankInfo);
+            return await _orderRepository.SendInfoToBankAsync(result);
         }
-
+        
 
     }
 }

@@ -3,7 +3,6 @@ using Raketo.BL.Interfaces;
 using Raketo.DAL.Entities;
 using Raketo.DAL.Interfaces;
 using Raketo.Model;
-using Raketo.BL.Models;
 
 namespace Raketo.BL.Services
 {
@@ -22,6 +21,11 @@ namespace Raketo.BL.Services
 
         public async Task AddAsync(OrderDto data)
         {
+
+            if (data.Id == Guid.Empty)
+            {
+                data.Id = Guid.NewGuid();
+            }
             var order = _mapper.Map<Order>(data);
             await _orderRepository.AddAsync(order);
         }
@@ -53,32 +57,25 @@ namespace Raketo.BL.Services
         }
         public async Task DeleteAllOrdersAsync(Guid userId)
         {
-            var orders = await _orderRepository.GetAllAsync(userId);
+            var orders = await _orderRepository.GetAllAsync(userId); 
             foreach (var order in orders)
             {
                 await _orderRepository.DeleteAsync(order.Id);
             }
         }
-        public async Task<bool> SendCustomerBankInfoAsync(Guid userId, string totalPrice, string name, string surname, string numberCard,
-            string cvv)
-        {
-            var customerBankInfo = new CustomerBankInfo
-            {
-                Id = Guid.NewGuid(),
-                Name = name,
-                Surname = surname,
-                NumberCard = numberCard,
-                CVV = cvv,
-                TotalPrice = totalPrice
-            };
-          return  await SendInfoToBankAsync(customerBankInfo);
-
-        }
-        public async Task<bool> SendInfoToBankAsync(CustomerBankInfo customerBankInfo) 
+        /// <summary>
+        /// Sends payment details to the bank and receives the processing result.
+        /// If the payment is successful, all user orders are deleted.
+        /// </summary>
+        /// <param name="customerBankInfo"></param>
+        /// <returns></returns>
+        public async Task<bool> SendInfoToBankAsync(CustomerBankInfoDto customerBankInfo)
         {
             await Task.Delay(1000);
-            return true; 
-        
+
+            return true;
+
         }
+        
     }
 }
